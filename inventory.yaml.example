@@ -1,0 +1,48 @@
+# Example inventory.yaml configuration
+# Copy this file to inventory.yaml and customize for your environment
+
+firewalls:
+  # Standalone firewall
+  - hostname: fw1.example.local
+    ip: 192.0.2.11
+    username: admin
+    # password: set via environment variable or prompt
+    model: PA-220
+    current_version: "10.1.3"
+    ha_mode: disabled
+
+  # HA pair - active firewall
+  - hostname: fw2-active.example.local
+    ip: 192.0.2.21
+    username: admin
+    model: PA-3220
+    current_version: "10.1.4"
+    ha_mode: active
+
+  # HA pair - passive firewall  
+  - hostname: fw2-passive.example.local
+    ip: 192.0.2.22
+    username: admin
+    model: PA-3220
+    current_version: "10.1.4"
+    ha_mode: passive
+
+  # VM-Series firewall
+  - hostname: vm-fw.example.local
+    ip: 192.0.2.100
+    username: admin
+    model: PA-VM
+    current_version: "11.0.1"
+    ha_mode: disabled
+
+# Optional: Group firewalls by location, model, or other criteria
+groups:
+  datacenter:
+    - fw2-active.example.local
+    - fw2-passive.example.local
+  
+  branch_offices:
+    - fw1.example.local
+  
+  cloud:
+    - vm-fw.example.local
